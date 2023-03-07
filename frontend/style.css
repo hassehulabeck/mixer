@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #eee;
+    color: #222;
+    transition: color 0.5s ease;
+    transition: background-color 0.5s ease;
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background-color: #222;
+    color: #eee;
+    transition: color 0.5s ease;
+    transition: background-color 0.5s ease;
+}
+.dark-mode .student {
+    background-color: #555;
+}
+
+.container {
+    height: calc(100vh - 5rem);
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 2rem;
+    gap: .5rem;
+}
+section, #selection div, #result div 
+{
+    border: thin solid gray;
+    border-radius: 3px;
+    padding: 1rem;
+}
+#selection {
+    width: 60%;
+    gap: .5rem;
+}
+#result {
+    width: 40%;
+    row-gap: .3rem;
+}
+#selection {
+    display: flex;
+    flex-direction: column;
+}
+#present, #away, #result {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem;
+    flex: 3;
+    min-height: 75%;
+}
+#away {
+    flex: 1;
+    max-height: 25%;
+    min-height: 1%;
+}
+
+#result div {
+    min-width: 45%;
+    background-color: #ede;
+    color: darkslategray;
+    padding: 0.5rem;
+    text-align: center;
+    
+}
+#result div.thirds {
+    min-width: 29%;
+}
+header {
+    width: 100%;
+    text-align: center;
+    min-height: 2rem;
+}
+button {
+    background-color: #77e;
+    color: whitesmoke;
+    font-size: 1.25rem;
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: .4rem;
+}
+
+/* Student */
+.student {
+    background-color: #adf;
+    padding: .5rem; 
+    max-height: 3rem;
+}
+
+/* Drag and drop-specific */
+.hide {
+    display: none;
+}
+#selection .drag-over {
+    border: dashed 3px red;
+}
