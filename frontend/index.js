@@ -1,6 +1,10 @@
 let present = document.getElementById("present");
 let away = document.getElementById("away");
 let result = document.getElementById("result");
+const pairProgrammerButton = document.getElementById("#pairProgrammerButton");
+
+//events
+pairProgrammerButton.onclick = shuffleStudents();
 
 const getStudents = async () => {
   const response = await fetch("http://localhost:4000/index.php");
