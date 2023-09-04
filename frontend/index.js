@@ -15,13 +15,19 @@ const getStudents = async () => {
 // Render nameboxes.
 let classList = getStudents();
 
+const firstLetterUpperCase = (name) => {
+  const firstLetter = name.charAt(0).toUpperCase();
+  const restOfStr = name.slice(1);
+  return firstLetter + restOfStr;
+};
+
 const renderList = (list) => {
   list.forEach((person) => {
     let box = document.createElement("div");
     box.classList.add("student");
     box.setAttribute("draggable", true);
     box.addEventListener("dragstart", dragStart);
-    box.innerText = person.firstname;
+    box.innerText = firstLetterUpperCase(person.firstname);
     box.id = person.id;
     present.appendChild(box);
   });
@@ -83,21 +89,21 @@ function drop(e) {
 // Show students
 function shuffleStudents() {
   let students = present.childNodes;
-  let thirds = students.length %2 !== 0 ? true : false
+  let thirds = students.length % 2 !== 0 ? true : false;
   for (let i = students.length; i > 0; i--) {
     result.appendChild(students[(Math.random() * i) | 0]);
   }
-  if (thirds){
+  if (thirds) {
     addThirdsClass();
   }
-  function addThirdsClass () {
-      let x = result.childNodes.length
-      let i = 1
-      for (const student of result.childNodes) {
-        if (i >= x - 2) {
-          student.classList.add('thirds');
-        }
-        i++
+  function addThirdsClass() {
+    let x = result.childNodes.length;
+    let i = 1;
+    for (const student of result.childNodes) {
+      if (i >= x - 2) {
+        student.classList.add("thirds");
       }
+      i++;
     }
+  }
 }
