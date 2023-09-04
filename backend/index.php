@@ -5,7 +5,7 @@ declare(strict_types=1);
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-$db = new PDO('sqlite:wu22.sqlite3');
+$db = new PDO('sqlite:Mixer_Test.sqlite3');
 
 $stmt = $db->query("SELECT * FROM WU22");
 $stmt->execute();
