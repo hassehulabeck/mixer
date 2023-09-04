@@ -27,6 +27,13 @@ const renderList = (list) => {
   });
 };
 
+/* Events for persons who are present */
+present.addEventListener("dragenter", dragEnter);
+present.addEventListener("dragover", dragOver);
+present.addEventListener("dragleave", dragLeave);
+present.addEventListener("drop", drop);
+
+/* Events for persons who are away */
 away.addEventListener("dragenter", dragEnter);
 away.addEventListener("dragover", dragOver);
 away.addEventListener("dragleave", dragLeave);
