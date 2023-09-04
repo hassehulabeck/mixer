@@ -1,9 +1,16 @@
+
 //set the backPort value on the row below to the portnumber you want use to start your localhost on.
 const backPort = '4000';
 
 let present = document.getElementById('present');
 let away = document.getElementById('away');
 let result = document.getElementById('result');
+
+const pairProgrammerButton = document.getElementById("pairProgrammerButton");
+
+//events
+pairProgrammerButton.addEventListener("click", shuffleStudents);
+
 
 const getStudents = async () => {
   const response = await fetch('http://localhost:' + backPort + '/index.php');
@@ -26,10 +33,19 @@ const renderList = (list) => {
   });
 };
 
-away.addEventListener('dragenter', dragEnter);
-away.addEventListener('dragover', dragOver);
-away.addEventListener('dragleave', dragLeave);
-away.addEventListener('drop', drop);
+
+/* Events for persons who are present */
+present.addEventListener("dragenter", dragEnter);
+present.addEventListener("dragover", dragOver);
+present.addEventListener("dragleave", dragLeave);
+present.addEventListener("drop", drop);
+
+/* Events for persons who are away */
+away.addEventListener("dragenter", dragEnter);
+away.addEventListener("dragover", dragOver);
+away.addEventListener("dragleave", dragLeave);
+away.addEventListener("drop", drop);
+
 
 // Drag and drop
 function allowDrop(ev) {
