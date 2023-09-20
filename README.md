@@ -2,8 +2,6 @@
 
 A simple mixer of a class of students into groups of two (and one group of three, if odd numbers).
 
-**NOTE** This is mainly thought of as an assignment for my students at the [Web developer education, YRGO, Gothenburg](https://www.yrgo.se/program/webbutvecklare). I appreciate your interest in this project, but allow me to focus more on their future this time.
-
 ## Installation
 The application consist of a backend part and a frontend. The backend would prefarably run on port 4000 (otherwise, change value on **line 6** in [frontend/index.js](frontend/index.js))
 
