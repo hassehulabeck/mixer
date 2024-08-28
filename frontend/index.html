@@ -9,8 +9,21 @@
 </head>
 <body>
     <div class="container">
-    <header><button id="pairProgrammerButton">Set pairprogrammers</button>
-        <button id="toggle-button">Toggle dark mode</button></header>
+    <header>
+        <button id="pairProgrammerButton">Set pairprogrammers</button>
+        <button id="toggle-button">Toggle dark mode</button>
+        <div class="button-container">
+            <button id="createGroupsButton" class="group-button">Create groups</button>
+            <div class="dropdown">
+                <button id="dropdownButton" class="dropdown-button">▼</button>
+                <div id="dropdownMenu" class="dropdown-menu">                    
+                    <a href="#" data-size="3">3</a>
+                    <a href="#" data-size="4">4</a>
+                    <a href="#" data-size="5">5</a>
+                </div>
+            </div>
+        </div>
+    </header>
     <section id="selection">
         <div id="present"></div>
         <div id="away"></div>

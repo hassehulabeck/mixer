@@ -1,7 +1,69 @@
+//old constants and variables
 let present = document.getElementById("present");
 let away = document.getElementById("away");
 let result = document.getElementById("result");
 const pairProgrammerButton = document.getElementById("pairProgrammerButton");
+
+//New constants and variables
+const createGroupsButton = document.getElementById('createGroupsButton');
+const dropdownButton = document.getElementById('dropdownButton');
+const dropdownMenu = document.getElementById('dropdownMenu');
+const dropdown = dropdownButton.parentElement;
+let selectedGroupSize = 3; //the default group size is 3 since the size of 2 is already handled by the pair button
+
+//eventlisteners and clickhandlers for group button and dropdown button
+dropdownButton.addEventListener('click', () => {
+    dropdown.classList.toggle('show');
+});
+
+dropdownMenu.addEventListener('click', (event) => {
+    if (event.target.tagName === 'A') {
+        event.preventDefault();
+        selectedGroupSize = parseInt(event.target.getAttribute('data-size'), 10);
+        dropdown.classList.remove('show');
+    }
+});
+
+document.addEventListener('click', (event) => {
+    if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('show');
+    }
+});
+
+createGroupsButton.addEventListener('click', () => {
+    let studentsArray = Array.from(present.childNodes);
+    let groups = createGroups(studentsArray, selectedGroupSize);
+
+    //groups the students in even groups, if there are "leftovers", theese students gets put in an already full group instead of having a half a group
+    result.innerHTML = '';
+    groups.forEach(group => {
+        let groupDiv = document.createElement('div');
+        group.forEach(student => {
+            groupDiv.appendChild(student);
+        });
+        result.appendChild(groupDiv);
+    });
+});
+
+//create groups based on user preferd group size
+function createGroups(students, groupSize) {
+    const numberOfGroups = Math.floor(students.length / groupSize);
+    const leftover = students.length % groupSize;
+
+    const groups = [];
+    let startIndex = 0;
+
+    
+    for (let i = 0; i < numberOfGroups; i++) {
+        let extraMember = i < leftover ? 1 : 0; //sprinkle the leftover students in groups
+        groups.push(students.slice(startIndex, startIndex + groupSize + extraMember));
+        startIndex += groupSize + extraMember;
+    }
+
+    return groups;
+}
+
+  
 
 //events
 pairProgrammerButton.addEventListener("click", shuffleStudents);
