@@ -47,20 +47,19 @@ createGroupsButton.addEventListener('click', () => {
 
 //create groups based on user preferd group size
 function createGroups(students, groupSize) {
-    const numberOfGroups = Math.floor(students.length / groupSize);
-    const leftover = students.length % groupSize;
+  //calculate the number of groups needed
+  const numberOfGroups = Math.ceil(students.length / groupSize);
+  const groups = Array.from({ length: numberOfGroups }, () => []);
 
-    const groups = [];
-    let startIndex = 0;
+  let currentGroupIndex = 0;
 
-    
-    for (let i = 0; i < numberOfGroups; i++) {
-        let extraMember = i < leftover ? 1 : 0; //sprinkle the leftover students in groups
-        groups.push(students.slice(startIndex, startIndex + groupSize + extraMember));
-        startIndex += groupSize + extraMember;
-    }
+  //loop through every students and assign them to groups
+  for (let i = 0; i < students.length; i++) {
+      groups[currentGroupIndex].push(students[i]);
+      currentGroupIndex = (currentGroupIndex + 1) % numberOfGroups;
+  }
 
-    return groups;
+  return groups;
 }
 
   
