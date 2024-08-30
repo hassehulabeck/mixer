@@ -1,6 +1,6 @@
-let present = document.getElementById("present");
-let away = document.getElementById("away");
-let result = document.getElementById("result");
+let present = document.getElementById("present-students");
+let absent = document.getElementById("absent-students");
+let paired = document.getElementById("paired-students");
 const pairProgrammerButton = document.getElementById("pairProgrammerButton");
 
 //events
@@ -39,11 +39,11 @@ present.addEventListener("dragover", dragOver);
 present.addEventListener("dragleave", dragLeave);
 present.addEventListener("drop", drop);
 
-/* Events for persons who are away */
-away.addEventListener("dragenter", dragEnter);
-away.addEventListener("dragover", dragOver);
-away.addEventListener("dragleave", dragLeave);
-away.addEventListener("drop", drop);
+/* Events for persons who are absent */
+absent.addEventListener("dragenter", dragEnter);
+absent.addEventListener("dragover", dragOver);
+absent.addEventListener("dragleave", dragLeave);
+absent.addEventListener("drop", drop);
 
 // Drag and drop
 function allowDrop(ev) {
@@ -91,15 +91,15 @@ function shuffleStudents() {
   let students = present.childNodes;
   let thirds = students.length % 2 !== 0 ? true : false;
   for (let i = students.length; i > 0; i--) {
-    result.appendChild(students[(Math.random() * i) | 0]);
+    paired.appendChild(students[(Math.random() * i) | 0]);
   }
   if (thirds) {
     addThirdsClass();
   }
   function addThirdsClass() {
-    let x = result.childNodes.length;
+    let x = paired.childNodes.length;
     let i = 1;
-    for (const student of result.childNodes) {
+    for (const student of paired.childNodes) {
       if (i >= x - 2) {
         student.classList.add("thirds");
       }
