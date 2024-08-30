@@ -99,3 +99,65 @@ button {
 #selection .drag-over {
   border: dashed 3px red;
 }
+
+
+
+
+/*dropdown changes*/
+
+/* Container styling */
+.button-container {
+    display: inline-flex;       
+    position: relative;
+    background-color: #77e;
+    border-radius: .4rem;
+}
+
+.dropdown {
+    position: relative;   
+}
+
+/* Styling the dropdown button */
+.dropdown-button.group-button {
+    background-color: #77e;
+    color: whitesmoke;
+    font-size: 1.25rem;
+    border: none;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.dropdown-button:active{
+    transform: scale(1.2);
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #77e;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 999;
+    width: 100%;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 16px;
+}
+
+.dropdown-menu a:hover {
+    background-color: whitesmoke;
+    color: #77e;
+}
+
+.dropdown.show .dropdown-menu {
+    display: block; 
+}
