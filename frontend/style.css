@@ -71,6 +71,21 @@ section,
 #paired-students div.thirds {
   min-width: 29%;
 }
+#present:before,
+#away:before,
+#result:before {
+  font: 1rem arial;
+}
+#present:before {
+  content: "Present";
+}
+#away:before {
+  content: "Away";
+}
+#result:before {
+  content: "Paired";
+}
+
 header {
   width: 100%;
   text-align: center;
