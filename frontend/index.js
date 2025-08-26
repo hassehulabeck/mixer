@@ -1,4 +1,4 @@
-
+let selectionBox = document.getElementById("selection");
 let present = document.getElementById("present");
 let absent = document.getElementById("away");
 let paired = document.getElementById("result");
@@ -86,68 +86,120 @@ const renderList = (list) => {
   list.forEach((person) => {
     let box = document.createElement("div");
     box.classList.add("student");
-    box.setAttribute("draggable", true);
-    box.addEventListener("dragstart", dragStart);
-    box.innerText = firstLetterUpperCase(person.firstname + " " + person.lastname);
+    box.textContent = firstLetterUpperCase(person.firstname + " " + person.lastname);
     box.id = person.id;
+    makeDraggable(box);
     present.appendChild(box);
   });
 };
 
-/* Events for persons who are present */
-present.addEventListener("dragenter", dragEnter);
-present.addEventListener("dragover", dragOver);
-present.addEventListener("dragleave", dragLeave);
-present.addEventListener("drop", drop);
+// Draggable logic
+let draggingEl = null;
+let dragOriginParent = null;
+let pointerOffsetX = 0;
+let pointerOffsetY = 0;
+let originalStyles = null;
 
-/* Events for persons who are absent */
-absent.addEventListener("dragenter", dragEnter);
-absent.addEventListener("dragover", dragOver);
-absent.addEventListener("dragleave", dragLeave);
-absent.addEventListener("drop", drop);
-
-// Drag and drop
-function allowDrop(ev) {
-  ev.preventDefault();
+function findDropZoneFromPoint(x, y) {
+  const el = document.elementFromPoint(x, y);
+  if (!el) return null;
+  const zones = [present, absent, paired];
+  return zones.find(z => el === z || el.closest?.(`#${z.id}`));
 }
 
-function dragStart(e) {
-  e.dataTransfer.setData("text/plain", e.target.id);
-  setTimeout(() => {
-    e.target.classList.add("hide");
-  }, 0);
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+// Make element draggable in selectionBox
+function makeDraggable(el) {
+  el.style.touchAction = "none"; 
+  el.addEventListener("pointerdown", onPointerDown);
 }
 
-function dragEnter(e) {
+function onPointerDown(e) {
+  if (e.button !== undefined && e.button !== 0) return;
+
+  draggingEl = e.currentTarget;
+  dragOriginParent = draggingEl.parentElement;
+
+  originalStyles = {
+    position: draggingEl.style.position,
+    left: draggingEl.style.left,
+    top: draggingEl.style.top,
+    width: draggingEl.style.width,
+    zIndex: draggingEl.style.zIndex,
+    pointerEvents: draggingEl.style.pointerEvents,
+  };
+
+  const rect = draggingEl.getBoundingClientRect();
+  const selRect = selectionBox.getBoundingClientRect();
+
+  pointerOffsetX = e.clientX - rect.left;
+  pointerOffsetY = e.clientY - rect.top;
+
+  draggingEl.style.position = "fixed";
+  draggingEl.style.width = rect.width + "px"; 
+  draggingEl.style.zIndex = "9999";
+  draggingEl.style.pointerEvents = "none"; 
+
+  moveDraggedTo(e.clientX, e.clientY, selRect);
+
+  window.addEventListener("pointermove", onPointerMove);
+  window.addEventListener("pointerup", onPointerUp, { once: true });
   e.preventDefault();
-  e.target.classList.add("drag-over");
 }
 
-function dragOver(e) {
-  e.preventDefault();
-  e.target.classList.add("drag-over");
+function onPointerMove(e) {
+  if (!draggingEl) return;
+  const selRect = selectionBox.getBoundingClientRect();
+  moveDraggedTo(e.clientX, e.clientY, selRect);
 }
 
-function dragLeave(e) {
-  e.target.classList.remove("drag-over");
+function moveDraggedTo(clientX, clientY, selRect) {
+  const elRect = draggingEl.getBoundingClientRect(); 
+  const targetLeft = clamp(
+    clientX - pointerOffsetX,
+    selRect.left,
+    selRect.right - elRect.width
+  );
+  const targetTop = clamp(
+    clientY - pointerOffsetY,
+    selRect.top,
+    selRect.bottom - elRect.height
+  );
+  draggingEl.style.left = targetLeft + "px";
+  draggingEl.style.top = targetTop + "px";
 }
 
-function drop(e) {
-  e.target.classList.remove("drag-over");
+function onPointerUp(e) {
+  if (!draggingEl) return;
 
-  // get the draggable element
-  const id = e.dataTransfer.getData("text/plain");
-  console.log(id);
-  const draggable = document.getElementById(id);
+  const zone = findDropZoneFromPoint(e.clientX, e.clientY);
 
-  // add it to the drop target
-  e.target.appendChild(draggable);
+  draggingEl.style.position = originalStyles.position || "";
+  draggingEl.style.left = originalStyles.left || "";
+  draggingEl.style.top = originalStyles.top || "";
+  draggingEl.style.width = originalStyles.width || "";
+  draggingEl.style.zIndex = originalStyles.zIndex || "";
+  draggingEl.style.pointerEvents = originalStyles.pointerEvents || "";
 
-  // display the draggable element
-  draggable.classList.remove("hide");
+  const selRect = selectionBox.getBoundingClientRect();
+  const insideSel =
+    e.clientX >= selRect.left && e.clientX <= selRect.right &&
+    e.clientY >= selRect.top && e.clientY <= selRect.bottom;
+
+  if (insideSel && zone) {
+    zone.appendChild(draggingEl);
+  } else {
+    if (dragOriginParent) dragOriginParent.appendChild(draggingEl);
+  }
+
+  window.removeEventListener("pointermove", onPointerMove);
+  draggingEl = null;
+  dragOriginParent = null;
+  originalStyles = null;
 }
 
-// Show students
+//Shuffle students
 function shuffleStudents() {
   let students = present.childNodes;
   let thirds = students.length % 2 !== 0 ? true : false;
