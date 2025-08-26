@@ -1,4 +1,4 @@
-
+let port = 4000;
 let present = document.getElementById("present-students");
 let absent = document.getElementById("absent-students");
 let paired = document.getElementById("paired-students");
@@ -68,7 +68,7 @@ function createGroups(students, groupSize) {
 pairProgrammerButton.addEventListener("click", shuffleStudents);
 
 const getStudents = async () => {
-  const response = await fetch("http://localhost:4000/index.php");
+  const response = await fetch(`http://localhost:${port}/index.php`);
   const classList = await response.json();
   renderList(classList);
 };
