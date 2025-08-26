@@ -1,7 +1,9 @@
 let port = 4000;
-let present = document.getElementById("present-students");
-let absent = document.getElementById("absent-students");
-let paired = document.getElementById("paired-students");
+
+let present = document.getElementById("present");
+let absent = document.getElementById("away");
+let paired = document.getElementById("result");
+
 const pairProgrammerButton = document.getElementById("pairProgrammerButton");
 
 //New constants and variables
