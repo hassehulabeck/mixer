@@ -1,7 +1,9 @@
+let port = 4000;
 
 let present = document.getElementById("present");
 let absent = document.getElementById("away");
 let paired = document.getElementById("result");
+
 const pairProgrammerButton = document.getElementById("pairProgrammerButton");
 
 //New constants and variables
@@ -68,7 +70,7 @@ function createGroups(students, groupSize) {
 pairProgrammerButton.addEventListener("click", shuffleStudents);
 
 const getStudents = async () => {
-  const response = await fetch("http://localhost:4000/index.php");
+  const response = await fetch(`http://localhost:${port}/index.php`);
   const classList = await response.json();
   renderList(classList);
 };
