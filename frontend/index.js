@@ -1,7 +1,7 @@
 
 let present = document.getElementById("present");
 let absent = document.getElementById("away");
-let paired = document.getElementById("selection");
+let paired = document.getElementById("result");
 const pairProgrammerButton = document.getElementById("pairProgrammerButton");
 
 //New constants and variables
