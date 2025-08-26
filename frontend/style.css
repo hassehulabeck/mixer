@@ -60,7 +60,6 @@ section,
   max-height: 25%;
   min-height: 1%;
 }
-
 #paired-students div {
   min-width: 45%;
   background-color: #ede;
@@ -70,6 +69,20 @@ section,
 }
 #paired-students div.thirds {
   min-width: 29%;
+}
+#present:before,
+#away:before,
+#result:before {
+  font: 1rem arial;
+}
+#present:before {
+  content: "Present";
+}
+#away:before {
+  content: "Away";
+}
+#result:before {
+  content: "Paired";
 }
 header {
   width: 100%;
@@ -100,64 +113,61 @@ button {
   border: dashed 3px red;
 }
 
-
-
-
 /*dropdown changes*/
 
 /* Container styling */
 .button-container {
-    display: inline-flex;       
-    position: relative;
-    background-color: #77e;
-    border-radius: .4rem;
+  display: inline-flex;
+  position: relative;
+  background-color: #77e;
+  border-radius: 0.4rem;
 }
 
 .dropdown {
-    position: relative;   
+  position: relative;
 }
 
 /* Styling the dropdown button */
 .dropdown-button.group-button {
-    background-color: #77e;
-    color: whitesmoke;
-    font-size: 1.25rem;
-    border: none;
-    padding: .5rem 1rem;
-    cursor: pointer;
-    border-radius: 0;
+  background-color: #77e;
+  color: whitesmoke;
+  font-size: 1.25rem;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0;
 }
 
-.dropdown-button:active{
-    transform: scale(1.2);
+.dropdown-button:active {
+  transform: scale(1.2);
 }
 
 /* Dropdown menu styling */
 .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #77e;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    z-index: 999;
-    width: 100%;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #77e;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 999;
+  width: 100%;
 }
 
 .dropdown-menu a {
-    display: block;
-    padding: 10px 15px;
-    text-decoration: none;
-    color: whitesmoke;
-    font-size: 16px;
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 16px;
 }
 
 .dropdown-menu a:hover {
-    background-color: whitesmoke;
-    color: #77e;
+  background-color: whitesmoke;
+  color: #77e;
 }
 
 .dropdown.show .dropdown-menu {
-    display: block; 
+  display: block;
 }
